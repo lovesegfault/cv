@@ -1,0 +1,115 @@
+\documentclass{cv}
+
+\usepackage{minted}
+
+\setname{Bernardo}{Meurer Costa}
+\setaddress{Berkeley, CA}
+\setmobile{510-882-9351}
+\setmail{bernardo@meurer.org}
+\setposition{Software Engineer} %ignored for now
+\setlinkedinaccount{https://www.linkedin.com/in/meurerbernardo/} %you can play with color of the template (red is also nice..)
+\setgithubaccount{https://github.com/lovesegfault} %you can play with color of the template (red is also nice..)
+\setthemecolor{red} %you can play with color of the template (red is also nice..)
+
+\begin{document}
+%Set variables
+%You can add sections, texts, explanations just by copying the style below. Replace the dummy texts "\lipsum[1][x-x]\par" with actual texts.
+%Create header
+\headerview
+\vspace{1ex}
+%Sections
+%
+% Summary
+\addblocktext{Summary}{%
+\lipsum[1][1-12]\ %replace this part with actual text
+}
+%
+% Experience
+\section{Experience}
+    \datedexperience{Nixpkgs}{2020-Present}
+    \explanation{Maintainer}
+    \explanationdetail{
+        \coloredbullet\ I maintain binutils, firefox, thunderbird, beets,
+            bindfs, and more
+    }
+    \datedexperience{Standard Cognition}{2018-Present}
+    \explanation{Systems Engineer}
+    \explanationdetail{
+        \coloredbullet\ I started as a summer intern and was converted to a full time software Engineer\par
+        \coloredbullet\ My initial role at Standard was working on the camera and
+            imaging stack, where I built the software that operates all cameras
+            across their sites, managing upwards of 100Gb/s of image data\par
+        \coloredbullet\ I transitioned into helping migrate the code that defined
+            the data pipeline from Python to Rust, eliminating years of
+            technical debt in the process\par
+        \coloredbullet\ I spearheaded a company-wide requirements
+            gathering in order to understand our data needs. This evolved into a
+            project to create better internal data engineering tools, which I
+            worked on until 2020\par
+        \coloredbullet\ I helped review the acquisition of another
+            company, where I was responsible for analyzing their stack and
+            detecting possible issues during integration, as well as licensing
+            issues\par
+        \coloredbullet\ I implemented a successful engineering-wide RFC
+            process\par
+        \coloredbullet\ I debugged numerous hardware issues with cameras and
+            worked with the vendor on developing and deploying fixes.\par
+        \coloredbullet\ I helped bring Rust to the entire engineering team,
+            taking us from my initial $\approx 2000$ LOC project to almost
+            $60\,000$ lines of Rust company-wide.\par
+    }
+    \datedexperience{Hangar}{2015-2018}
+    \explanationdetail {
+        \coloredbullet\ I helped co-found Hangar, one of the first makerspaces
+            in Brazil\par
+        \coloredbullet\ While active, I helped grow the organization from 3 to
+            more than 30 members and held workshops on C, robotics, and Rust
+    }
+%
+% Skills
+\section{Skills}
+    \newcommand {\proglangs} {
+        \createskill {Programming Languages} {
+            \textbf{\emph{Experienced:}} \ \  Rust \cpshalf C  \cpshalf Nix
+            \cpshalf Bash \ \  \textbf{\emph{Familiar:}} \ \  Python \cpshalf C++ \cpshalf VHDL \cpshalf LaTeX
+        }
+    }
+    \newcommand {\langs}{
+        \createskill {Languages} {
+            \textbf{\emph{Native:}} \ \ Portuguese \ \ \textbf{\emph{Fluent:}} \ \ English \ \ \textbf{\emph{Beginner:}} \ \  Spanish \cpshalf French
+        }
+    }
+    \newcommand {\tools} {
+        \createskill {Tools} {
+            Git \cpshalf Nix \cpshalf Cargo \cpshalf Vim \cpshalf Vivado \cpshalf
+        }
+    }
+
+    \createskills {\proglangs,\langs,\tools}
+\section{Education}
+    \datedexperience {Instituto Superior Técnico} {2016-2018}
+    \explanation {Joint B.S. \& M.S. in Computer Engineering}
+    \explanationdetail {
+        \coloredbullet\ Not completed
+    }
+
+\section{Extra}
+    \newcommand{\extraone}{%
+    \lipsum[1][7-8]\par %replace this part with actual text
+    }
+    %
+    \newcommand{\extratwo}{%
+    \lipsum[1][9-10]\par %replace this part with actual text
+    }
+    %
+    \newcommand{\extrathree}{%
+    \lipsum[1][11-12]%replace this part with actual text
+    }
+    %
+    \newcommand{\listofextras}{\extraone, \extratwo, \extrathree}
+    %
+    \createbullets{\listofextras}
+%
+%Footnote
+\createfootnote
+\end{document}

@@ -22,31 +22,40 @@
           src = gitignoreSource ./.;
 
           buildInputs = [
+            (python3.withPackages (ps: with ps; [ pygments ]))
             (texlive.combine {
               inherit (texlive)
                 scheme-small
                 latexmk
 
-                isodate
-                substr
-                textpos
+                catchfile
+                fontawesome
+                framed
+                fvextra
+                lipsum
+                mfirstuc
+                minted
+                noto
                 titlesec
+                xstring
                 ;
             })
           ];
+
+          FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ font-awesome_4 ]; };
 
           makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
           buildPhase = "make";
         };
 
-        devShell = with pkgs; mkShell {
-          name = "cv";
-          buildInputs = (self.defaultPackage.${system}.buildInputs or [ ]) ++ [
+        devShell = self.defaultPackage.${system}.overrideAttrs (oldAttrs: {
+          buildInputs = with pkgs; (oldAttrs.buildInputs or [ ]) ++ [
             nixpkgs-fmt
             nix-linter
             texlab
+            inotify-tools
           ];
-        };
+        });
       });
 }
