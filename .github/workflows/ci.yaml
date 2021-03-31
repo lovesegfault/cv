@@ -18,7 +18,7 @@ jobs:
       - uses: cachix/cachix-action@v8
         with:
           name: bernardo
-          signingKey: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: lints
         run: |
           nix develop -c echo "fixme"
@@ -36,7 +36,7 @@ jobs:
       - uses: cachix/cachix-action@v8
         with:
           name: bernardo
-          signingKey: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: nix-build
         run: |
           nix build -L
