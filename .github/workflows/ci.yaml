@@ -38,8 +38,12 @@ jobs:
           name: bernardo
           signingKey: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: nix-build
-        run: nix build -L
+        run: |
+          nix build -L
+          ls $PWD/result
+          mkdir -p ~/result
+          cp result/*.pdf ~/result
       - uses: actions/upload-artifact@v2
         with:
           name: cv
-          path: result/cv.pdf
+          path: ~/result/cv.pdf
