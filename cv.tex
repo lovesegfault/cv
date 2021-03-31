@@ -11,6 +11,9 @@
 \setgithubaccount{https://github.com/lovesegfault}
 \setthemecolor{teal}
 
+% Adjust this such that sections are not interrupted between pages.
+\renewcommand{\baselinestretch}{0.9}
+
 \begin{document}
 \headerview
 \vspace{1ex}
@@ -18,18 +21,18 @@
 \explanationdetail{
 	\begin{flushleft}
 		\setlength{\parindent} {4ex}
-		\hspace{\parindent} I'm a Software Engineer with more than 5 years of
-		experience writing and deploying high performance systems into
-		production with Rust, with a focus on driving hardware devices. I have a
-		proven track record of debugging hard to reproduce hardware/software
-		issues and communicating root causes and solutions effectively. I've
-		successfully taken four projects from inception to production on time,
-		helping coordinate and organize the respective teams.  I have strong
-		communication skills, and pride myself in speaking to others with candor
-		and compassion.
 
-		I'm a mostly self-taught programmer, and I enjoy working on code that is
-		performance sensitive and/or close to hardware.
+		\hspace{\parindent} I am a Software Engineer with 5+ years of experience
+		writing and deploying high-performance systems into production with Rust,
+		with a focus on driving hardware devices. I have a proven track record of
+		debugging hard-to-reproduce hardware/software issues and communicating root
+		causes and solutions effectively. I've successfully taken 4 projects from
+		inception to production on time, helping coordinate and organize the
+		respective teams. I have strong communication skills, and pride myself in
+		speaking to others with candor and compassion.
+
+		I am a mostly self-taught programmer, and I enjoy working on code that is
+		performance-sensitive and/or close to hardware.
 
 		The most important aspects of work to me are effective communication,
 		learning opportunities, individual and team ownership, value-based
@@ -41,52 +44,49 @@
 \datedexperience{Nixpkgs}{2020--Present}
 \explanation{Maintainer}
 \explanationdetail{
-	\coloredbullet\ I maintain binutils, firefox, thunderbird, beets,
-	bindfs, and more
-}
+	\coloredbullet\ Maintain binutils, firefox, thunderbird, beets, bindfs, and
+	more }
 \datedexperience{Standard Cognition}{2018--Present}
 \explanation{Systems Engineer}
 \explanationdetail{
-	\coloredbullet\ I started as a summer intern and was promoted to a full
-	time Software Engineer.\par
-	\coloredbullet\ My initial role at Standard was working on the camera and
-	imaging stack, where I built the software that operates all cameras
-	across their sites, managing upwards of 100Gb/s of image data with only
-	on-site processing.\par
-	\coloredbullet\ I transitioned into helping migrate the code that defined
-	the data pipeline from Python to Rust, eliminating years of
-	technical debt in the process.\par
-	\coloredbullet\ I spearheaded a company-wide requirements
-	gathering in order to understand our data needs. This evolved into a
-	project to create better internal data engineering tools, which I
-	worked on until 2020.\par
-	\coloredbullet\ I helped review the acquisition of another
-	company, where I was responsible for analyzing their stack and
-	detecting possible issues during integration, as well as licensing
-	issues.\par
-	\coloredbullet\ I implemented a successful engineering-wide RFC
+	\coloredbullet\ Started as a summer intern and was promoted to a full-time
+	Software Engineer.\par
+	\coloredbullet\ Initially worked on the camera and
+	imaging stack, where I built the software that operates all cameras across
+	their sites, managing upwards of 100Gb/s of image data with only on-site
+	processing.\par
+	\coloredbullet\ Transitioned into helping migrate the code that defined
+	the data pipeline from Python to Rust, eliminating years of technical debt in
+	the process.\par
+	\coloredbullet\ Spearheaded a company-wide requirements
+	gathering in order to understand our data needs. This evolved into a project
+	to create better internal data engineering tools, which I worked on until
+	2020.\par
+	\coloredbullet\ Helped review the acquisition of another
+	company, where I was responsible for analyzing their stack and detecting
+	possible issues during integration, as well as licensing issues.\par
+	\coloredbullet\ Implemented a successful engineering-wide RFC
 	process.\par
-	\coloredbullet\ I debugged numerous hardware issues with cameras and
-	worked with the vendor on developing and deploying fixes.\par
-	\coloredbullet\ I helped bring Rust to the entire engineering team,
-	taking us from my initial $\approx 2000$ LOC project to almost
-	$60\,000$ lines of Rust company-wide.\par
+	\coloredbullet\ Debugged numerous hardware issues with cameras and worked
+	with the vendor on developing and deploying fixes.\par
+	\coloredbullet\ Helped bring Rust to the entire engineering team,
+	taking us from my initial $\approx 2000$ LoC project to almost $60\,000$
+	lines of Rust company-wide.\par
 }
 \datedexperience{Hangar}{2015--2018}
 \explanation{Founder}
 \explanationdetail{
-	\coloredbullet\ I helped co-found Hangar, one of the first makerspaces
-	in Brazil.\par
-	\coloredbullet\ While active, I helped grow the organization from 3 to
-	more than 30 members and held workshops on C, robotics, and Rust.
+	\coloredbullet\ Co-founded Hangar, one of the first makerspaces in Brazil.\par
+	\coloredbullet\ Helped grow the organization from 3 to over 30 members.\par
+	\coloredbullet\ Held workshops on C, robotics, and Rust.\par
 }
 \datedexperience{Async Open Source}{2014--2016 Summers}
 \explanation{Intern}
 \explanationdetail{
-	\coloredbullet\ I developed an application that helped customers easily migrate
+	\coloredbullet\ Developed an application that helped customers easily migrate
 	their databases to Postgres.\par
-	\coloredbullet\ I migrated our application to mobile using Cordova.\par
-	\coloredbullet\ I helped fix and triage many bugs in our usage of PyGTK.\par
+	\coloredbullet\ Migrated our application to mobile using Cordova.\par
+	\coloredbullet\ Helped fix and triage many bugs in our usage of PyGTK.\par
 }
 
 \section{Skills}
@@ -127,9 +127,18 @@
 
 \section{Education}
 \datedexperience{Instituto Superior Técnico}{2016--2018}
-\explanation{Joint B.S. \& M.S. in Computer Engineering}
+% \explanation{Joint B.S. \& M.S. in Computer Engineering}
+\explanation{Coursework in Computer Engineering}
 \explanationdetail{
-	\coloredbullet\ Not completed.
+	\coloredbullet\ Digital Systems\par
+	\coloredbullet\ Computer Architecture\par
+	\coloredbullet\ Programming (C)\par
+	\coloredbullet\ Linear Algebra\par
+	\coloredbullet\ Applied Chemistry\par
+	\coloredbullet\ Real Analysis\par
+	\coloredbullet\ Multivariable Calculus\par
+	\coloredbullet\ Mechanics \& Waves\par
+	\coloredbullet\ Management of Engineering Projects\par
 }
 
 \section{Writing}
@@ -157,13 +166,13 @@
 \createbullets{\listofhobbies}
 
 \section{Volunteering}
-\newcommand{\taketothehills} {\href{https://taketothehills.net/}{Take to the Hills} --- I help mantain the Berkeley trails, cleaning them and keeping them filled with beautiful California native plants.}
+\newcommand{\taketothehills} {\href{https://taketothehills.net/}{Take to the Hills} --- Help mantain the Berkeley trails, cleaning them and keeping them filled with beautiful California native plants.}
 
-\newcommand{\pecep} {\href{http://pecep.educacao.ws/}{PECEP} --- I taught mathematics to high school children from the Rocinha slum of Rio.}
+\newcommand{\pecep} {\href{http://pecep.educacao.ws/}{PECEP} --- Taught mathematics to high school children from the Rocinha slum of Rio.}
 
-\newcommand{\cs} {CS50 Brazil --- I was a TA during a recreation of the Harvard CS50 course in Rio de Janeiro.}
+\newcommand{\cs} {CS50 Brazil --- Was a TA during a recreation of the Harvard CS50 course in Rio de Janeiro.}
 
-\newcommand{\nursing} {Nursing Home --- I helped residents with their computers every weekend at a local nursing home while in high school.}
+\newcommand{\nursing} {Nursing Home --- Helped residents with their computers every weekend at a local nursing home while in high school.}
 
 \newcommand{\listofvolunteering}{\taketothehills, \pecep, \cs, \nursing}
 \createbullets{\listofvolunteering}
