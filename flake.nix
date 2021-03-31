@@ -27,6 +27,7 @@
               inherit (texlive)
                 scheme-small
                 latexmk
+                latexindent
 
                 catchfile
                 fontawesome

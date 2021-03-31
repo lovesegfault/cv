@@ -42,7 +42,7 @@
 
 \hypersetup{
     colorlinks=true,
-    urlcolor=cyan,
+    urlcolor=teal,
 }
 
 % View commands
