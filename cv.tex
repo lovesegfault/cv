@@ -14,8 +14,27 @@
 \begin{document}
 \headerview
 \vspace{1ex}
-\addblocktext{Summary}{
-	TODO
+\section{Summary}
+\explanationdetail {
+	\begin{flushleft}
+		\setlength{\parindent} {4ex}
+		\hspace{\parindent} I'm a Software Engineer with more than 5 years of
+		experience writing and deploying high performance systems into
+		production with Rust, with a focus on driving hardware devices. I have a
+		proven track record of debugging hard to reproduce hardware/software
+		issues and communicating root causes and solutions effectively. I've
+		successfully taken four projects from inception to production on time,
+		helping coordinate and organize the respective teams.  I have strong
+		communication skills, and pride myself in speaking to others with candor
+		and compassion.
+
+		I'm a mostly self-taught programmer, and I enjoy working on code that is
+		performance sensitive and/or close to hardware.
+
+		The most important aspects of work to me are effective communication,
+		learning opportunities, individual and team ownership, value-based
+		culture, and an interesting product.
+	\end{flushleft}
 }
 
 \section{Experience}
@@ -89,13 +108,6 @@
 }
 \createskills {\proglangs,\langs,\tools}
 
-\section{Education}
-\datedexperience {Instituto Superior Técnico} {2016-2018}
-\explanation {Joint B.S. \& M.S. in Computer Engineering}
-\explanationdetail {
-	\coloredbullet\ Not completed.
-}
-
 \section {Projects}
 \newcommand{\nix}{\href{https://github.com/lovesegfault/nix-config}{\mintinline{text}{nix-config}}
 --- My NixOS configuration spanning all my systems}
@@ -121,16 +133,25 @@ without loading dtbs}
 \newcommand{\listofprojects}{\nix,\genesis,\beautysh,\cachesize,\daedalos,\hyperpixel,\cv}
 \createbullets{\listofprojects}
 
-\section {writing}
+\section{Education}
+\datedexperience {Instituto Superior Técnico} {2016-2018}
+\explanation {Joint B.S. \& M.S. in Computer Engineering}
+\explanationdetail {
+	\coloredbullet\ Not completed.
+}
+
+\section {Writing}
 \newcommand{\euclidean}{\href{https://lovesegfault.com/post/2018-11-18-euclidean-spaces/}{Notes on Euclidean Spaces}}
 
 \newcommand{\drm}{\href{https://lovesegfault.com/post/2017-12-22-drm-considered-harmful/}{DRM Considered Harmful}}
 
 \newcommand{\leibniz}{\href{https://lovesegfault.com/post/2017-10-25-on-leibnizs-truth/}{On Leibniz's Truth}}
 
+\newcommand{\factorial}{\href{https://oeis.org/A000142/a000142.pdf}{Swing, divide and conquer the factorial}}
+
 \newcommand{\home}{\href{https://lovesegfault.com/post/2019-02-13-home/}{Home}}
 
-\newcommand{\listofwriting}{\euclidean,\drm,\leibniz,\home}
+\newcommand{\listofwriting}{\euclidean,\drm,\leibniz,\factorial,\home}
 \createbullets{\listofwriting}
 
 \section {Hobbies}
