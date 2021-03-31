@@ -21,13 +21,16 @@
           name = "cv";
           src = gitignoreSource ./.;
 
-          buildInputs = [
-            (python3.withPackages (ps: with ps; [ pygments ]))
+          nativeBuildInputs = [
+            which
+            python3Packages.pygments
             (texlive.combine {
               inherit (texlive)
                 scheme-small
                 latexmk
                 latexindent
+                lacheck
+                chktex
 
                 catchfile
                 fontawesome
@@ -46,8 +49,6 @@
           FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ font-awesome_4 ]; };
 
           makeFlags = [ "PREFIX=${placeholder "out"}" ];
-
-          buildPhase = "make";
         };
 
         devShell = self.defaultPackage.${system}.overrideAttrs (oldAttrs: {
