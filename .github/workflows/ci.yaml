@@ -19,9 +19,12 @@ jobs:
         with:
           name: bernardo
           signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
-      - name: lints
+      - name: chktex
+        run: nix develop -c chktex cv.tex
+      - name: latexindent
         run: |
-          nix develop -c echo "fixme"
+          nix develop -c latexindent cv.tex > cv.tex.fmt
+          cmp --silent cv.tex cv.tex.fmt || exit 1
 
   build:
     runs-on: ubuntu-latest
