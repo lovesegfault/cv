@@ -42,7 +42,7 @@ jobs:
           nix build -L
           ls $PWD/result
           mkdir -p ~/result
-          cp result/*.pdf ~/result
+          cp result/cv.pdf ~/result
       - uses: actions/upload-artifact@v2
         with:
           name: cv
