@@ -44,10 +44,6 @@ jobs:
         run: |
           mkdir -p ~/
           nix build -L -o ~/result
-      - uses: actions/upload-artifact@v2
-        with:
-          name: cv
-          path: ~/result/cv.pdf
 
   publish:
     runs-on: ubuntu-latest
