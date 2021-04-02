@@ -41,7 +41,9 @@ jobs:
           name: bernardo
           signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
       - name: nix-build
-        run: nix build -L -o ~/result
+        run: |
+          mkdir -p ~/
+          nix build -L -o ~/result
       - uses: actions/upload-artifact@v2
         with:
           name: cv
@@ -63,7 +65,9 @@ jobs:
           name: bernardo
           signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
       - name: nix-build
-        run: nix build -L -o ~/result
+        run: |
+          mkdir -p ~/
+          nix build -L -o ~/result
       - name: commit
         run: |
           git checkout publish 2>/dev/null || git checkout -b publish
