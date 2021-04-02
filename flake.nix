@@ -53,10 +53,10 @@
 
         devShell = self.defaultPackage.${system}.overrideAttrs (oldAttrs: {
           buildInputs = with pkgs; (oldAttrs.buildInputs or [ ]) ++ [
-            nixpkgs-fmt
             nix-linter
+            nixpkgs-fmt
+            pre-commit
             texlab
-            inotify-tools
           ];
         });
       });
