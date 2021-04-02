@@ -41,9 +41,7 @@ jobs:
           name: bernardo
           signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
       - name: nix-build
-        run: |
-          mkdir -p ~/
-          nix build -L -o ~/result
+        run: nix build -L
 
   publish:
     runs-on: ubuntu-latest
@@ -69,7 +67,7 @@ jobs:
           git checkout publish 2>/dev/null || git checkout -b publish
           [ "$(git branch --show-current)" = "publish" ] || exit 1
           rm -rf ./*
-          mv ~/result/cv.pdf ./
+          cp ~/result/cv.pdf ./
 
           git config --local user.email "bernardo@meurer.org"
           git config --local user.name "Bernardo Meurer"
