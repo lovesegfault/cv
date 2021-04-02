@@ -62,8 +62,14 @@ jobs:
         run: |
           mkdir -p ~/
           nix build -L -o ~/result
+      - uses: mathieudutour/github-tag-action@v5.4
+        id: tag
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - uses: softprops/action-gh-release@v1
         with:
+          body: ${{ steps.tag_version.outputs.changelog }}
+          tag_name: ${{ steps.tag_version.outputs.new_tag }}
           files: ~/result/cv.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
