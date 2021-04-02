@@ -20,27 +20,22 @@
 \begin{document}
 \headerview%
 \vspace{1ex}
-\section{Summary}
+
+\section{At a Glance}
 \explanationdetail{
-	\begin{flushleft}
-		\setlength{\parindent} {4ex}
+	\begin{itemize}
+		\item 5+ years experience writing and deploying high-performance systems into
+		  production with Rust, with a focus on driving hardware devices.
 
-		\hspace{\parindent} I am a Software Engineer with 5+ years of experience
-		writing and deploying high-performance systems into production with Rust,
-		with a focus on driving hardware devices. I have a proven track record of
-		debugging hard-to-reproduce hardware/software issues and communicating root
-		causes and solutions effectively. I've successfully taken 4 projects from
-		inception to production on time, helping coordinate and organize the
-		respective teams. I have strong communication skills, and pride myself in
-		speaking to others with candor and compassion.
+		\item Proven track record of debugging hard-to-reproduce hardware/software
+		  issues and communicating root causes and solutions effectively.
 
-		I am a mostly self-taught programmer, and I enjoy working on code that is
-		performance-sensitive and/or close to hardware.
+		\item 4 industry projects successfully taken from inception to production on
+		time, helping coordinate and organize the respective teams.
 
-		The most important aspects of work to me are effective communication,
-		learning opportunities, individual and team ownership, value-based
-		culture, and an interesting product.
-	\end{flushleft}
+		\item Strong communication skills, taking pride to speak to others with candor
+		 and compassion.
+	\end{itemize}
 }
 
 \section{Experience}
@@ -52,29 +47,25 @@
 \datedexperience{Standard Cognition}{2018--Present}
 \explanation{Systems Engineer}
 \explanationdetail{
-	\coloredbullet\ Started as a summer intern and was promoted to a full-time
-	Software Engineer.\par
-	\coloredbullet\ Initially worked on the camera and
-	imaging stack, where I built the software that operates all cameras across
-	their sites, managing upwards of 100Gb/s of image data with only on-site
-	processing.\par
-	\coloredbullet\ Transitioned into helping migrate the code that defined
-	the data pipeline from Python to Rust, eliminating years of technical debt in
-	the process.\par
-	\coloredbullet\ Spearheaded a company-wide requirements
-	gathering in order to understand our data needs. This evolved into a project
-	to create better internal data engineering tools, which I worked on until
-	2020.\par
-	\coloredbullet\ Helped review the acquisition of another
-	company, where I was responsible for analyzing their stack and detecting
-	possible issues during integration, as well as licensing issues.\par
-	\coloredbullet\ Implemented a successful engineering-wide RFC
-	process.\par
+	\coloredbullet\ Started as summer intern and was promoted to full-time
+		Software Engineer.\par
+ 	\coloredbullet\ Initially worked on the camera and imaging stack, where I
+		built the software that operates all cameras across their sites, managing
+		upwards of 100Gb/s of image data with only on-site processing.\par
+	\coloredbullet\ Transitioned into helping migrate data pipeline code from
+		Python to Rust, eliminating years of technical debt.\par
+	\coloredbullet\ Spearheaded a company-wide requirements gathering in order to
+		understand our data needs. This evolved into a project to create better
+		internal data engineering tools, which I worked on until 2020.\par
+	\coloredbullet\ Helped review the acquisition of another company, where I was
+		responsible for analyzing their stack and detecting possible issues during
+		integration, as well as licensing issues.\par
+	\coloredbullet\ Implemented a successful engineering-wide RFC process.\par
 	\coloredbullet\ Debugged numerous hardware issues with cameras and worked
 	with the vendor on developing and deploying fixes.\par
-	\coloredbullet\ Helped bring Rust to the entire engineering team,
-	taking us from my initial $\approx 2000$ LoC project to almost $60\,000$
-	lines of Rust company-wide.\par
+	\coloredbullet\ Helped bring Rust to the entire engineering team, taking us
+		from my initial $\sim 2000$ LoC project to almost $60\,000$ lines of Rust
+		company-wide.\par
 }
 \datedexperience{Hangar}{2015--2018}
 \explanation{Founder}
@@ -87,10 +78,11 @@
 \explanation{Intern}
 \explanationdetail{
 	\coloredbullet\ Developed an application that helped customers easily migrate
-	their databases to Postgres.\par
+		their databases to Postgres.\par
 	\coloredbullet\ Migrated our application to mobile using Cordova.\par
 	\coloredbullet\ Helped fix and triage many bugs in our usage of PyGTK.\par
 }
+
 
 \section{Skills}
 \newcommand{\proglangs}{
@@ -134,14 +126,18 @@
 }
 \createskills{\proglangs,\langs,\tools}
 
-\section{Projects}
+
+% These projects should be qualified in the title as "Open-Source" or
+% "Personal" as opposed to "industry" in the introductory "At a Glance"
+% section.
+\section{Open-Source Projects}
 \newcommand{\nix}{\href{https://github.com/lovesegfault/nix-config}{nix-config} --- My NixOS configuration spanning all my systems}
 
 \newcommand{\genesis}{\href{https://github.com/lovesegfault/genesis}{genesis} --- Explorations into genetic algorithms}
 
 \newcommand{\beautysh}{\href{https://github.com/lovesegfault/beautysh}{beautysh} --- Bash formatter}
 
-\newcommand{\cachesize}{\href{https://github.com/lovesegfault/cache-size}{cache-size} --- Simple Rust crate to get the CPUs cache size}
+\newcommand{\cachesize}{\href{https://github.com/lovesegfault/cache-size}{cache-size} --- Simple Rust crate to get the CPU cache sizes}
 
 \newcommand{\daedalos}{\href{https://github.com/lovesegfault/daedalos}{daedalos} --- Rust kernel based on the osdev wiki and }
 
@@ -152,16 +148,21 @@
 \newcommand{\listofprojects}{\nix,\genesis,\beautysh,\cachesize,\daedalos,\hyperpixel,\cv}
 \createbullets{\listofprojects}
 
+
 \section{Talks}
-\newcommand{\rustlab}{\href{https://www.youtube.com/watch?v=3NVev3FhGgk}{RustLab 2019 --- Neobuffer: Safe, Lock Free, Cross-Process Channels in Rust}}
+\newcommand{\rustlab}{
+	RustLab 2019 --- Neobuffer: Safe, Lock Free, Cross-Process Channels in Rust \cpshalf%
+	\href{https://www.youtube.com/watch?v=3NVev3FhGgk}{Recording} \cpshalf%
+	\href{https://lovesegfault.com/slides/rustlab-2019.pdf}{Slides}
+}
 
 \newcommand{\listoftalks}{\rustlab}
 \createbullets{\listoftalks}
 
 \section{Education}
 \datedexperience{Instituto Superior Técnico}{2016--2018}
-% \explanation{Joint B.S. \& M.S. in Computer Engineering}
 \explanation{Coursework in Computer Engineering}
+
 \explanationdetail{
 	\coloredbullet\ Digital Systems\par
 	\coloredbullet\ Computer Architecture\par
@@ -197,6 +198,7 @@
 
 \newcommand{\listofhobbies}{\printing, \electronics, \botany}
 \createbullets{\listofhobbies}
+
 
 \section{Volunteering}
 \newcommand{\taketothehills} {\href{https://taketothehills.net/}{Take to the Hills} --- Help mantain the Berkeley trails, cleaning them and keeping them filled with beautiful California native plants.}
