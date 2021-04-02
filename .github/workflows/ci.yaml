@@ -41,11 +41,7 @@ jobs:
           name: bernardo
           signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
       - name: nix-build
-        run: |
-          nix build -L
-          ls $PWD/result
-          mkdir -p ~/result
-          cp result/cv.pdf ~/result
+        run: nix build -L -o ~/result
       - uses: actions/upload-artifact@v2
         with:
           name: cv
@@ -67,14 +63,13 @@ jobs:
           name: bernardo
           signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
       - name: nix-build
-        run: nix build -L
+        run: nix build -L -o ~/result
       - name: commit
         run: |
           git checkout publish 2>/dev/null || git checkout -b publish
           [ "$(git branch --show-current)" = "publish" ] || exit 1
-          mv result/cv.pdf ~/
           rm -rf ./*
-          mv result/cv.pdf ./
+          mv ~/result/cv.pdf ./
 
           git config --local user.email "bernardo@meurer.org"
           git config --local user.name "Bernardo Meurer"
