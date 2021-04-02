@@ -66,7 +66,7 @@ jobs:
         run: |
           git checkout publish 2>/dev/null || git checkout -b publish
           [ "$(git branch --show-current)" = "publish" ] || exit 1
-          rm -rf ./* ./.*
+          find . -not -path "./.git" -not -path "./.git/*" -not -path "." -delete
           cp ~/result/cv.pdf ./
 
           git config --local user.email "bernardo@meurer.org"
