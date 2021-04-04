@@ -34,6 +34,7 @@
 
                 catchfile
                 fontawesome
+                fontaxes
                 framed
                 fvextra
                 lipsum
