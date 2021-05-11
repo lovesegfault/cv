@@ -38,8 +38,6 @@
 \datedexperience{Standard Cognition}{2018--Present}
 \explanation{Systems Engineer}
 \explanationdetail{
-	\coloredbullet\ Started as summer intern and was promoted to full-time
-	Software Engineer.\par
 	\coloredbullet\ Initially worked on the camera and imaging stack, where I
 	built the software that operates all cameras across their sites, managing
 	upwards of 100Gb/s of image data with only on-site processing.\par
@@ -103,6 +101,18 @@
 		French
 	}
 }
+\newcommand{\libraries}{
+	\createskill{Libraries}{
+		OpenCV \cpshalf%
+		Gstreamer \cpshalf%
+		FFmpeg \cpshalf%
+		numpy \cpshalf%
+		pandas \cpshalf%
+		tokio \cpshalf%
+		Aravis \cpshalf%
+		nalgebra% \cpshalf%
+	}
+}
 \newcommand{\tools}{
 	\createskill{Tools}{
 		Linux \cpshalf%
@@ -115,7 +125,7 @@
 		Portage
 	}
 }
-\createskills{\proglangs,\langs,\tools}
+\createskills{\proglangs,\langs,\libraries,\tools}
 
 \section{Open-Source Projects}
 \newcommand{\nixpkgs}{\href{https://github.com/NixOS/nixpkgs}{nixpkgs} --- Maintain binutils, firefox, thunderbird, beets, bindfs, and more}
