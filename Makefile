@@ -10,13 +10,13 @@ endif
 all: $(DOCNAME).pdf
 
 $(DOCNAME).pdf: $(DOCNAME).$(DOCEXT)
-	latexmk -pdf -shell-escape -xelatex -use-make $(DOCNAME).$(DOCEXT)
+	latexmk -pdf -shell-escape -xelatex -use-make -output-directory=build $(DOCNAME).$(DOCEXT)
 
-watch: $(DOCNAME).$(DOCEXT)
-	latexmk -pvc -pdf -shell-escape -xelatex -use-make $(DOCNAME).$(DOCEXT)
+watch: $(DOCNAME).pdf
+	latexmk -pvc -pdf -shell-escape -xelatex -use-make -output-directory=build $(DOCNAME).$(DOCEXT)
 
 clean:
-	latexmk -CA $(DOCNAME).$(DOCEXT)
+	rm -rf ./build
 
-install:
-	cp $(DOCNAME).pdf $(PREFIX)
+install: $(DOCNAME).pdf
+	cp build/$(DOCNAME).pdf $(PREFIX)
