@@ -2,19 +2,18 @@
   description = "lovesegfault's CV";
 
   inputs = {
-    flake-utils.url = "github:numtide/flake-utils";
+    utils.url = "github:numtide/flake-utils";
     gitignore = {
       url = "github:hercules-ci/gitignore.nix";
-      flake = false;
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
   };
 
-  outputs = { self, flake-utils, gitignore, nixpkgs, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs = { self, gitignore, nixpkgs, utils }:
+    utils.lib.eachDefaultSystem (system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
-        gitignoreSource = (import gitignore { inherit (pkgs) lib; }).gitignoreSource;
+        pkgs = import nixpkgs { inherit system; overlays = [ gitignore.overlay ]; };
       in
       {
         defaultPackage = with pkgs; stdenv.mkDerivation {
