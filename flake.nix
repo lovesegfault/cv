@@ -11,16 +11,16 @@
   };
 
   outputs = { self, gitignore, nixpkgs, utils }:
-    utils.lib.eachDefaultSystem (system:
+    utils.lib.eachSystem [ "aarch64-darwin" "aarch64-linux" "x86_64-linux" ] (system:
       let
         pkgs = import nixpkgs { inherit system; overlays = [ gitignore.overlay ]; };
       in
       {
-        defaultPackage = with pkgs; stdenv.mkDerivation {
+        packages.default = pkgs.stdenv.mkDerivation {
           name = "cv";
-          src = gitignoreSource ./.;
+          src = pkgs.gitignoreSource ./.;
 
-          nativeBuildInputs = [
+          nativeBuildInputs = with pkgs; [
             which
             python3Packages.pygments
             (texlive.combine {
@@ -46,12 +46,12 @@
             })
           ];
 
-          FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ font-awesome_4 ]; };
+          FONTCONFIG_FILE = pkgs.makeFontsConf { fontDirectories = with pkgs; [ font-awesome_4 ]; };
 
           makeFlags = [ "PREFIX=${placeholder "out"}" ];
         };
 
-        devShell = self.defaultPackage.${system}.overrideAttrs (oldAttrs: {
+        devShells.default = self.packages.${system}.default.overrideAttrs (oldAttrs: {
           buildInputs = with pkgs; (oldAttrs.buildInputs or [ ]) ++ [
             nix-linter
             nixpkgs-fmt
