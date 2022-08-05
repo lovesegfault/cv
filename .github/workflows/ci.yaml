@@ -8,10 +8,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - uses: cachix/install-nix-action@v14
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v17
         with:
           install_url: https://nixos-nix-install-tests.cachix.org/serve/ipa0c64h689jb4ys6hxsky2r8xpld0hv/install
           install_options: '--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve'
@@ -19,7 +17,7 @@ jobs:
       - uses: cachix/cachix-action@v10
         with:
           name: bernardo
-          signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: chktex
         run: nix develop -c chktex cv.tex
       - name: latexindent
@@ -30,10 +28,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - uses: cachix/install-nix-action@v14
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v17
         with:
           install_url: https://nixos-nix-install-tests.cachix.org/serve/ipa0c64h689jb4ys6hxsky2r8xpld0hv/install
           install_options: '--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve'
@@ -41,7 +37,7 @@ jobs:
       - uses: cachix/cachix-action@v10
         with:
           name: bernardo
-          signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: nix-build
         run: nix build -L
 
@@ -50,10 +46,8 @@ jobs:
     if: github.ref == 'refs/heads/master'
     needs: [ lint, build ]
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - uses: cachix/install-nix-action@v14
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v17
         with:
           install_url: https://nixos-nix-install-tests.cachix.org/serve/ipa0c64h689jb4ys6hxsky2r8xpld0hv/install
           install_options: '--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve'
@@ -61,7 +55,7 @@ jobs:
       - uses: cachix/cachix-action@v10
         with:
           name: bernardo
-          signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: nix-build
         run: |
           nix build -L
