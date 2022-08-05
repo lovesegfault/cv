@@ -53,6 +53,7 @@
 
         devShells.default = self.packages.${system}.default.overrideAttrs (oldAttrs: {
           buildInputs = with pkgs; (oldAttrs.buildInputs or [ ]) ++ [
+            ltex-ls
             nix-linter
             nixpkgs-fmt
             pre-commit
