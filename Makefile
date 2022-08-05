@@ -16,7 +16,12 @@ watch: $(DOCNAME).pdf
 	latexmk -pvc -pdf -shell-escape -xelatex -use-make -output-directory=build $(DOCNAME).$(DOCEXT)
 
 clean:
-	rm -rf ./build
+	rm result || true
+	rm -rf ./build || true
+	rm *.aux || true
+	rm *.fdb_latexmk || true
+	rm *.fls || true
+	rm *.log || true
 
 install: $(DOCNAME).pdf
 	cp build/$(DOCNAME).pdf $(PREFIX)
