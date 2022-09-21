@@ -2,6 +2,8 @@
 
 \usepackage[outputdir=build]{minted}
 \usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
 
 \setname{Bernardo}{Meurer Costa}
 \setposition{Software Engineer}
@@ -26,8 +28,7 @@
 		\item Proven track record of debugging hard-to-reproduce hardware/software
 		      issues and communicating root causes and solutions effectively.
 
-		\item 4 industry projects successfully taken from inception to production on
-		      time, helping coordinate and organize the respective teams.
+		\item Extensive experience porting large codebases to Rust.
 
 		\item Strong communication skills, taking pride in speaking to others
 		      with candor and compassion.
@@ -35,15 +36,32 @@
 }
 
 \section{Experience}
-\datedexperience{Google Quantum AI}{2021--Present}
-\explanation{Systems Engineer}
+\datedexperience{AWS}{2022--Present}
+\explanation{Software Engineer}
 \explanationdetail{
-	\coloredbullet\ Worked on QKernel, the operating system / control software
+	\coloredbullet\ Working on CargoBrazil, the integration between Cargo and
+	Amazon's internal build system.\par
+	\coloredbullet\ Held the weekly Nix office hours, helping many dozens of
+	developers become productive with Nix in the process.\par
+}
+\datedexperience{Google Quantum AI}{2021--2022}
+\explanation{Software Engineer}
+\explanationdetail{
+	\coloredbullet\ Worked on QKernel, the operating system and control software
 	for the quantum computer.\par
-	\coloredbullet\ Woked on QCC, the quantum circuit compiler.\par
+	\coloredbullet\ Worked on QCC, the quantum circuit compiler.\par
+	\coloredbullet\ Lead the effort to port core components to Rust.\par
+	\coloredbullet\ Participated in multiple complex incident responses, helping
+	trace root causes and draft solutions.\par
+	\coloredbullet\ Brought CI times from $\approx 40$ minutes to $\lesssim 10$
+	minutes.\par
+	\coloredbullet\ Implemented self-hosted GitHub Actions for a team of over
+	100 engineers using GKE.\par
+	\coloredbullet\ Automated the translation of SystemVerilog headers into
+	Rust.\par
 }
 \datedexperience{Standard Cognition}{2018--2021}
-\explanation{Systems Engineer}
+\explanation{Systems Software Engineer}
 \explanationdetail{
 	\coloredbullet\ Initially worked on the camera and imaging stack, where I
 	built the software that operates all cameras across their sites, managing
