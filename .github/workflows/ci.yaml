@@ -35,10 +35,10 @@ jobs:
       - name: nix-build
         run: nix build -L
       - name: cachix-push
-        if: github.event_name == 'workflow_call'
+        if: github.ref == 'refs/heads/master'
         run: cachix push bernardo ./result
       - name: upload-artifact
-        if: github.event_name == 'workflow_call'
+        if: github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@v3
         with:
           name: cv
