@@ -59,8 +59,10 @@
 
         devShells.default = self.packages.${system}.default.overrideAttrs (oldAttrs: {
           nativeBuildInputs = with pkgs; (oldAttrs.nativeBuildInputs or [ ]) ++ [
+            actionlint
             ltex-ls
             nixpkgs-fmt
+            statix
             texlab
           ];
 
