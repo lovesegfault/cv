@@ -6,6 +6,7 @@ result
 result-*
 .direnv
 *.drv
+.pre-commit-config.yaml
 
 ### LaTeX ###
 ## Core latex/pdflatex auxiliary files:
