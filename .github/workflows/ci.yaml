@@ -4,7 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  lint:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,12 +17,8 @@ jobs:
         with:
           name: bernardo
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - name: chktex
-        run: nix develop -c chktex cv.tex
-      - name: latexindent
-        run: |
-          nix develop -c latexindent cv.tex > cv.tex.fmt
-          cmp --silent cv.tex cv.tex.fmt || exit 1
+      - name: check
+        run: nix flake check -L
   build:
     runs-on: ubuntu-latest
     steps:
