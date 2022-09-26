@@ -34,6 +34,9 @@ jobs:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: nix-build
         run: nix build -L
+      - name: cachix-push
+        if: github.event_name == 'workflow_call'
+        run: cachix push bernardo ./result
       - name: upload-artifact
         if: github.event_name == 'workflow_call'
         uses: actions/upload-artifact@v3
