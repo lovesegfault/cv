@@ -72,24 +72,11 @@
         checks.pre-commit = pre-commit.lib.${system}.run {
           src = pkgs.gitignoreSource ./.;
           hooks = {
+            actionlint.enable = true;
+            chktex.enable = true;
+            latexindent.enable = true;
             nixpkgs-fmt.enable = true;
             statix.enable = true;
-            actionlint = {
-              enable = true;
-              files = "^.github/workflows/";
-              types = [ "file" "yaml" ];
-              entry = lib.getExe pkgs.actionlint;
-            };
-            chktex = {
-              enable = true;
-              types = [ "file" "tex" ];
-              entry = "${pkgs.texlive.combined.scheme-medium}/bin/chktex";
-            };
-            latexindent = {
-              enable = true;
-              types = [ "file" "tex" ];
-              entry = "${pkgs.texlive.combined.scheme-medium}/bin/latexindent --local --silent --modifyIfDifferent";
-            };
           };
         };
       });
