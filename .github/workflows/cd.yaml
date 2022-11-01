@@ -24,7 +24,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: cv
-      - uses: mathieudutour/github-tag-action@v5.6
+      - uses: mathieudutour/github-tag-action@v6.1
         id: tag
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
