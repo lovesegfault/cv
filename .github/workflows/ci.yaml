@@ -36,7 +36,7 @@ jobs:
         with:
           name: bernardo
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - name: nix-flake-check
+      - name: nix-flake-show
         run: nix flake show '${{ env.flake }}'
   flake-build:
     runs-on: ubuntu-latest
