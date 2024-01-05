@@ -10,8 +10,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     pre-commit = {
       url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        gitignore.follows = "gitignore";
+      };
     };
   };
 
@@ -63,6 +66,7 @@
             ltex-ls
             nixpkgs-fmt
             statix
+            nil
             texlab
           ];
 
