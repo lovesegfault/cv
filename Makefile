@@ -10,10 +10,10 @@ endif
 all: $(DOCNAME).pdf
 
 $(DOCNAME).pdf: $(DOCNAME).$(DOCEXT)
-	latexmk -pdf -shell-escape -xelatex -use-make -output-directory=build $(DOCNAME).$(DOCEXT)
+	latexmk -pdf -shell-escape -xelatex -use-make $(DOCNAME).$(DOCEXT)
 
 watch: $(DOCNAME).pdf
-	latexmk -pvc -pdf -shell-escape -xelatex -use-make -output-directory=build $(DOCNAME).$(DOCEXT)
+	latexmk -pvc -pdf -shell-escape -xelatex -use-make $(DOCNAME).$(DOCEXT)
 
 clean:
 	rm result || true

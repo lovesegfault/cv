@@ -67,7 +67,7 @@
 }
 
 \newcommand{\contact}{%
-	{\small \@address \\ \@mail%
+	{\small \@address \\ \@mail\\ \@mobile%
 			\\%
 			\githubview \cps \linkedinview \\
 		} %

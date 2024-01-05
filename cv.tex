@@ -1,6 +1,6 @@
 \documentclass{cv}
 
-\usepackage[outputdir=build]{minted}
+\usepackage{minted}
 \usepackage{hyperref}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -9,6 +9,7 @@
 \setposition{Software Engineer}
 \setaddress{Brooklyn, New York}
 \setmail{bernardo@meurer.org}
+\setmobile{(805) 886-1045}
 \setlinkedinaccount{https://www.linkedin.com/in/meurerbernardo/}
 \setgithubaccount{https://github.com/lovesegfault}
 \setthemecolor{teal}
@@ -22,31 +23,35 @@
 \section{At a Glance}
 \explanationdetail{
 	\begin{itemize}
-		\item 5+ years experience writing and deploying high-performance systems into
-		      production with Rust.
+		\item 5+ years experience writing and deploying high-performance systems into production with Rust.
 
-		\item Diverse breadth of experience, having worked on driving hardware
-		      devices, compilers, build systems, operating systems, and computer
-		      vision.
+		\item Diverse breadth of experience, having worked on driving hardware devices, compilers, build systems, operating systems, and computer vision.
 
-		\item Proven track record of debugging hard-to-reproduce hardware/software
-		      issues and communicating root causes and solutions effectively.
+		\item Proven track record of debugging hard-to-reproduce hardware/software issues and communicating root causes and solutions effectively.
 
-		\item Extensive experience porting large codebases to Rust.
+		\item Extensive experience porting large codebases to Rust and introducing Rust to teams.
 
-		\item Strong communication skills, taking pride in speaking to others
-		      with candor and compassion.
+		\item Strong communication skills, taking pride in speaking to others with candor and compassion.
 	\end{itemize}
 }
 
 \section{Experience}
 \datedexperience{AWS}{2022--Present}
-\explanation{Software Engineer}
+\explanation{Senior Software Engineer  2023--Present}
 \explanationdetail{
-	\coloredbullet\ Working on CargoBrazil, the integration between Cargo and
-	Amazon's internal build system.\par
-	\coloredbullet\ Held the weekly Nix office hours, helping many dozens of
+	\coloredbullet\ Lead developer for the BTLX (Builder Tools Language Experience) Rust team, in charge of the experience of over 4000 developers using Rust at AWS.\par
+	\coloredbullet\ Sole team member to survive the wave of layoffs, taking on the load that was previously shared by a team of $\approx 5$ senior engineers.\par
+	\coloredbullet\ Worked closely with the Rust compiler team, acting as the intermediary between Open Source and business needs of Rust at Amazon.\par
+	\coloredbullet\ Drove various improvements to the Rust experience at Amazon, leading to many billions of dollars saved in engineering time and build infrastructure costs.\par
+	\vspace*{1mm}
+}
+\explanation{Software Engineer  2022--2023}
+\explanationdetail{
+	\coloredbullet\ Worked on CargoBrazil, the integration between Cargo and
+	Amazon's internal build system, Brazil.\par
+	\coloredbullet\ Held the weekly Nix office hours, helping hundreds of
 	developers become productive with Nix in the process.\par
+	\vspace*{2.5mm}
 }
 \datedexperience{Google Quantum AI}{2021--2022}
 \explanation{Software Engineer}
@@ -63,9 +68,10 @@
 	100 engineers using GKE.\par
 	\coloredbullet\ Automated the translation of SystemVerilog headers into
 	Rust.\par
+	\vspace*{2.5mm}
 }
 \datedexperience{Standard Cognition}{2018--2021}
-\explanation{Systems Software Engineer}
+\explanation{AI Systems Software Engineer}
 \explanationdetail{
 	\coloredbullet\ Initially worked on the camera and imaging stack, where I
 	built the software that operates all cameras across their sites, managing
@@ -84,6 +90,8 @@
 	\coloredbullet\ Helped bring Rust to the entire engineering team, taking us
 	from my initial $\sim 2000$ LoC project to almost $60\,000$ lines of Rust
 	company-wide.\par
+	\vspace*{2.5mm}
+	\newpage
 }
 \datedexperience{Hangar}{2015--2018}
 \explanation{Founder}
@@ -91,6 +99,7 @@
 	\coloredbullet\ Co-founded Hangar, one of the first makerspaces in Brazil.\par
 	\coloredbullet\ Helped grow the organization from 3 to over 30 members.\par
 	\coloredbullet\ Held workshops on C, robotics, and Rust.\par
+	\vspace*{2.5mm}
 }
 \datedexperience{Async Open Source}{2014--2016 Summers}
 \explanation{Intern}
@@ -99,6 +108,7 @@
 	their databases to Postgres.\par
 	\coloredbullet\ Migrated our application to mobile using Cordova.\par
 	\coloredbullet\ Helped fix and triage many bugs in our usage of PyGTK.\par
+	\vspace*{2.5mm}
 }
 
 \section{Skills}
@@ -167,13 +177,15 @@
 
 \newcommand{\cachesize}{\href{https://github.com/lovesegfault/cache-size}{cache-size} --- Simple Rust crate to get the CPU cache sizes}
 
-\newcommand{\daedalos}{\href{https://github.com/lovesegfault/daedalos}{daedalos} --- Rust kernel based on the osdev wiki and }
+\newcommand{\daedalos}{\href{https://github.com/lovesegfault/daedalos}{daedalos} --- Rust kernel based on the osdev wiki}
+
+\newcommand{\transcoders}{\href{https://github.com/lovesegfault/transcode-rs}{transcode-rs} --- Rust utility to discover, analyze, and transcode a video collection to AV1}
 
 \newcommand{\hyperpixel}{\href{https://github.com/lovesegfault/hyperpixel-init}{hyperpixel-init} --- Configures and initializes the Hyperpixel 4 display, allowing you to use it without loading dtbs}
 
 \newcommand{\cv}{\href{https://github.com/lovesegfault/cv}{cv} --- This very CV}
 
-\newcommand{\listofprojects}{\nixpkgs,\nix,\genesis,\beautysh,\cachesize,\daedalos,\hyperpixel,\cv}
+\newcommand{\listofprojects}{\nixpkgs,\nix,\genesis,\transcoders,\beautysh,\cachesize,\daedalos,\hyperpixel,\cv}
 \createbullets{\listofprojects}
 
 \section{Talks}
@@ -213,9 +225,7 @@
 
 \newcommand{\factorial}{\href{https://oeis.org/A000142/a000142.pdf}{Swing, divide and conquer the factorial}}
 
-\newcommand{\home}{\href{https://lovesegfault.com/posts/home/}{Home}}
-
-\newcommand{\listofwriting}{\euclidean,\pointers,\drm,\leibniz,\factorial,\home}
+\newcommand{\listofwriting}{\euclidean,\pointers,\drm,\leibniz,\factorial}
 \createbullets{\listofwriting}
 
 \section{Hobbies}
@@ -223,7 +233,7 @@
 
 \newcommand{\electronics} {Electronics (mostly radio and amplifier construction)}
 
-\newcommand{\botany} {Plant identification}
+\newcommand{\botany} {Botany / Taxonomy}
 
 \newcommand{\listofhobbies}{\printing, \electronics, \botany}
 \createbullets{\listofhobbies}
