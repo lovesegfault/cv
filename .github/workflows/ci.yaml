@@ -55,7 +55,7 @@ jobs:
           echo "result=$(realpath ./result)" >> "$GITHUB_OUTPUT"
       - name: upload-artifact
         if: github.ref == 'refs/heads/master'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cv
           path: ${{ steps.build.outputs.result }}/cv.pdf
