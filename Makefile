@@ -17,11 +17,10 @@ watch: $(DOCNAME).pdf
 
 clean:
 	rm result || true
-	rm -rf ./build || true
 	rm *.aux || true
 	rm *.fdb_latexmk || true
 	rm *.fls || true
 	rm *.log || true
 
 install: $(DOCNAME).pdf
-	cp build/$(DOCNAME).pdf $(PREFIX)
+	cp $(DOCNAME).pdf $(PREFIX)
