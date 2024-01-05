@@ -6,41 +6,53 @@ on:
       CACHIX_AUTH_TOKEN:
         required: true
 
+env:
+  flake: github:${{ github.repository }}/${{ github.sha }}
+  nix-conf: |-
+    accept-flake-config = true
+    builders-use-substitutes = true
+    max-jobs = auto
+
 jobs:
-  check:
+  flake-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v20
+      - uses: DeterminateSystems/nix-installer-action@v9
         with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            experimental-features = nix-command flakes
-      - uses: cachix/cachix-action@v12
+          extra-conf: ${{ env.nix-conf }}
+      - uses: cachix/cachix-action@v13
         with:
           name: bernardo
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - name: check
-        run: nix flake check -L
-  build:
+      - name: nix-flake-check
+        run: nix flake check '${{ env.flake }}'
+  flake-show:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v20
+      - uses: DeterminateSystems/nix-installer-action@v9
         with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            experimental-features = nix-command flakes
-      - uses: cachix/cachix-action@v12
+          extra-conf: ${{ env.nix-conf }}
+      - uses: cachix/cachix-action@v13
         with:
           name: bernardo
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - name: nix build
+      - name: nix-flake-check
+        run: nix flake show '${{ env.flake }}'
+  flake-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: DeterminateSystems/nix-installer-action@v9
+        with:
+          extra-conf: ${{ env.nix-conf }}
+      - uses: cachix/cachix-action@v13
+        with:
+          name: bernardo
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - name: nix-build
         id: build
-        run: echo "::set-output name=result::$(nix build -L --print-out-paths)"
-      - name: cachix-push
-        if: github.ref == 'refs/heads/master'
-        run: cachix push bernardo "${{ steps.build.outputs.result }}"
+        run: |
+          nix build -L '${{ env.flake }}'
+          echo "result=$(realpath ./result)" >> "$GITHUB_OUTPUT"
       - name: upload-artifact
         if: github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@v3
