@@ -17,10 +17,21 @@
     };
   };
 
-  outputs = { self, flake-utils, gitignore, nixpkgs, git-hooks }:
-    flake-utils.lib.eachSystem [ "aarch64-darwin" "aarch64-linux" "x86_64-linux" ] (system:
+  outputs =
+    {
+      self,
+      flake-utils,
+      gitignore,
+      nixpkgs,
+      git-hooks,
+    }:
+    flake-utils.lib.eachSystem [ "aarch64-darwin" "aarch64-linux" "x86_64-linux" ] (
+      system:
       let
-        pkgs = import nixpkgs { inherit system; overlays = [ gitignore.overlay ]; };
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ gitignore.overlay ];
+        };
         inherit (pkgs) lib;
       in
       {
@@ -60,14 +71,15 @@
         };
 
         devShells.default = self.packages.${system}.default.overrideAttrs (oldAttrs: {
-          nativeBuildInputs = with pkgs; (oldAttrs.nativeBuildInputs or [ ]) ++ [
-            actionlint
-            ltex-ls
-            nixpkgs-fmt
-            statix
-            nil
-            texlab
-          ];
+          nativeBuildInputs =
+            with pkgs;
+            (oldAttrs.nativeBuildInputs or [ ])
+            ++ [
+              actionlint
+              nixfmt-rfc-style
+              statix
+              nil
+            ];
 
           inherit (self.checks.${system}.pre-commit) shellHook;
         });
@@ -78,9 +90,10 @@
             actionlint.enable = true;
             chktex.enable = true;
             latexindent.enable = true;
-            nixpkgs-fmt.enable = true;
+            nixfmt-rfc-style.enable = true;
             statix.enable = true;
           };
         };
-      });
+      }
+    );
 }
