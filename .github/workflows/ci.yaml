@@ -7,7 +7,7 @@ on:
         required: true
 
 env:
-  flake: github:${{ github.repository }}/${{ github.sha }}
+  flake: git+ssh://git@github.com/${{ github.repository }}/${{ github.sha }}/cv.git?lfs=1
   nix-conf: |-
     accept-flake-config = true
     builders-use-substitutes = true
@@ -25,7 +25,7 @@ jobs:
           name: bernardo
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: nix-flake-check
-        run: nix flake check '${{ env.flake }}?lfs=1'
+        run: nix flake check '${{ env.flake }}'
   flake-show:
     runs-on: ubuntu-latest
     steps:
@@ -51,7 +51,7 @@ jobs:
       - name: nix-build
         id: build
         run: |
-          nix build -L '${{ env.flake }}?lfs=1'
+          nix build -L '${{ env.flake }}'
           echo "result=$(realpath ./result)" >> "$GITHUB_OUTPUT"
       - name: upload-artifact
         if: github.ref == 'refs/heads/master'
