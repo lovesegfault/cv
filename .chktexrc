@@ -1,0 +1,39 @@
+VerbEnvir
+{
+    verbatim comment listing verbatimtab rawhtml errexam picture texdraw
+    filecontents pgfpicture tikzpicture minted codeblock setmonofont setsansfont
+}
+
+WipeArg
+{
+    \label:{} \ref:{} \eqref:{} \vref:{} \pageref:{} \index:[]{}
+    \cite:[][]{} \nocite:{}
+    \input:{} \verbatiminput:[]{} \listinginput:[]{}{}
+    \graphicspath:{}
+    \verbatimtabinput:[]{} \include:{} \includeonly:{}
+    \bibitem:[]{}
+    \cline:{} \cmidrule:[](){}
+    \href:{}{}
+    # Cleveref -- there are many others that could be here as well...
+    \cref:*{} \cpageref:*{} \crefrange:*{}{} \cpagerefrange:*{}{}
+    \Cref:*{} \Cpageref:*{} \Crefrange:*{}{} \Cpagerefrange:*{}{}
+    # natbib
+    \citet:*[][]{} \citep:*[][]{} \citealt:*{} \citealp:*[]{} \citeauthor:*{}
+    \Citet:*[][]{} \Citep:*[][]{} \Citealt:*{} \Citealp:*[]{} \Citeauthor:{}
+    \citetext:{} \citeyear:*{} \citeyearpar:{}
+    # biblatex - not including special commands
+    \autocite:*[][]{} \autocites:*[][]{} \Autocite:*[][]{} \Autocites:*[][]{}
+    \parencite:*[][]{} \parencites:*[][]{} \Parencite:*[][]{} \Parencites:*[][]{}
+    19
+    \footcite:*{} \footcites:*[][]{} \Footcite:*[][]{} \Footcites:*[][]{}
+    \textcite:*{} \textcites:*[][]{} \Textcite:*[][]{} \Textcites:*[][]{}
+    \citeauthor:*{} \citeauthors:*[][]{} \Citeauthor:*[][]{} \Citeauthors:*[][]{}
+    \citeyear:*{} \citeyears:*[][]{} \Citeyear:*[][]{} \Citeyears:*[][]{}
+    \citetitle:*{} \citetitles:*[][]{} \Citetitle:*[][]{} \Citetitles:*[][]{}
+    # tipa which uses "
+    \textipa:{}
+    # LuaTeX
+    \directlua:{} \luaescapestring:{}
+    # custom
+    \mtxt:{} \mrs:{}
+}

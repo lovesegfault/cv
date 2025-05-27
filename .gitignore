@@ -301,3 +301,9 @@ TSWLatexianTemp*
 
 # glossaries
 *.glstex
+
+# chktex
+*.bak*
+
+# svg conversions
+svg-inkscape/

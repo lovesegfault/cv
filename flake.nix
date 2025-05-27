@@ -1,99 +1,133 @@
 {
-  description = "lovesegfault's CV";
-
   inputs = {
-    flake-utils.url = "github:numtide/flake-utils";
+    self.lfs = true;
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
     gitignore = {
       url = "github:hercules-ci/gitignore.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs = {
+        flake-compat.follows = "flake-compat";
         nixpkgs.follows = "nixpkgs";
         gitignore.follows = "gitignore";
       };
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    {
-      self,
-      flake-utils,
-      gitignore,
-      nixpkgs,
-      git-hooks,
-    }:
-    flake-utils.lib.eachSystem [ "aarch64-darwin" "aarch64-linux" "x86_64-linux" ] (
-      system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ gitignore.overlay ];
-        };
-        inherit (pkgs) lib;
-      in
-      {
-        packages.default = pkgs.stdenv.mkDerivation {
-          name = "cv";
-          src = pkgs.gitignoreSource ./.;
+    inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        inputs.git-hooks.flakeModule
+        inputs.treefmt-nix.flakeModule
+      ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
+      perSystem =
+        {
+          config,
+          self',
+          inputs',
+          pkgs,
+          system,
+          ...
+        }:
+        {
+          # Per-system attributes can be defined here. The self' and inputs'
+          # module parameters provide easy access to attributes of the same
+          # system.
+          _module.args.pkgs = import inputs.nixpkgs {
+            localSystem = system;
+            overlays = [ inputs.gitignore.overlay ];
+          };
+          pre-commit = {
+            check.enable = true;
+            settings.hooks = {
+              actionlint.enable = true;
+              nil.enable = true;
+              statix.enable = true;
+              treefmt.enable = true;
+              chktex.enable = true;
+            };
+          };
 
-          nativeBuildInputs = with pkgs; [
-            which
-            python3Packages.pygments
-            (texlive.combine {
-              inherit (texlive)
-                scheme-small
-                latexmk
-                latexindent
-                lacheck
-                chktex
+          treefmt = {
+            projectRootFile = "flake.nix";
+            flakeCheck = false; # Covered by git-hooks check
+            programs = {
+              nixfmt.enable = true;
+              latexindent.enable = true;
+            };
+            settings.formatter.latexindent.options = [ "-l" ];
+          };
 
-                catchfile
-                fontawesome
-                fontaxes
-                framed
-                fvextra
-                lipsum
-                mfirstuc
-                minted
-                noto
-                titlesec
-                xstring
-                ;
-            })
-          ];
+          devShells.default = self'.packages.default.overrideAttrs (old: {
+            nativeBuildInputs =
+              (old.nativeBuildInputs or [ ])
+              ++ (with pkgs; [ statix ])
+              ++ (builtins.attrValues config.treefmt.build.programs);
 
-          FONTCONFIG_FILE = pkgs.makeFontsConf { fontDirectories = with pkgs; [ font-awesome_4 ]; };
+            shellHook = config.pre-commit.installationScript;
+          });
 
-          makeFlags = [ "PREFIX=${placeholder "out"}" ];
-        };
+          packages.default = pkgs.stdenv.mkDerivation {
+            name = "cv";
+            src = pkgs.gitignoreSource ./.;
 
-        devShells.default = self.packages.${system}.default.overrideAttrs (oldAttrs: {
-          nativeBuildInputs =
-            with pkgs;
-            (oldAttrs.nativeBuildInputs or [ ])
-            ++ [
-              actionlint
-              nixfmt-rfc-style
-              statix
-              nil
+            nativeBuildInputs = with pkgs; [
+              (texlive.combine {
+                inherit (texlive)
+                  scheme-basic
+
+                  latexmk
+                  xetex
+
+                  fontawesome
+                  fontspec
+                  lineno
+                  lipsum
+                  mfirstuc
+                  minted
+                  noto
+                  pgf
+                  titlesec
+                  upquote
+                  xcolor
+                  xkeyval
+                  ;
+              })
+              (python3.withPackages (ps: with ps; [ pygments ]))
             ];
 
-          inherit (self.checks.${system}.pre-commit) shellHook;
-        });
+            preBuild = ''
+              export XDG_CACHE_HOME="$(mktemp -d)"
+              export XDG_CONFIG_HOME="$(mktemp -d)"
+              mkdir -p "$XDG_CACHE_HOME/texmf-var"
+              export TEXMFHOME="$XDG_CACHE_HOME" TEXMFVAR="$XDG_CACHE_HOME/texmf-var"
+            '';
 
-        checks.pre-commit = git-hooks.lib.${system}.run {
-          src = pkgs.gitignoreSource ./.;
-          hooks = {
-            actionlint.enable = true;
-            chktex.enable = true;
-            latexindent.enable = true;
-            nixfmt-rfc-style.enable = true;
-            statix.enable = true;
+            makeFlags = [ "PREFIX=${placeholder "out"}" ];
           };
         };
-      }
-    );
+      flake = {
+        # The usual flake attributes can be defined here, including system-
+        # agnostic ones like nixosModule and system-enumerating ones, although
+        # those are more easily expressed in perSystem.
+
+      };
+    };
 }

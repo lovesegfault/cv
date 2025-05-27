@@ -1,26 +1,23 @@
-DOCNAME=cv
-DOCEXT=tex
+DOC=cv
 
 ifeq ($(PREFIX),)
 	PREFIX:= ./.
 endif
 
-.PHONY: $(DOCNAME).pdf all clean watch
+default all: $(DOC).pdf
 
-all: $(DOCNAME).pdf
+$(DOC).pdf: $(DOC).tex
+	latexmk $(DOC).tex
 
-$(DOCNAME).pdf: $(DOCNAME).$(DOCEXT)
-	latexmk -pdf -shell-escape -xelatex -use-make $(DOCNAME).$(DOCEXT)
+watch: $(DOC).pdf
+	latexmk -pvc $(DOC).tex
 
-watch: $(DOCNAME).pdf
-	latexmk -pvc -pdf -shell-escape -xelatex -use-make $(DOCNAME).$(DOCEXT)
-
+.PHONY: clean
 clean:
-	rm result || true
-	rm *.aux || true
-	rm *.fdb_latexmk || true
-	rm *.fls || true
-	rm *.log || true
+	rm -rf build/
+	rm -f indent.log
+	rm -f $(DOC).bak0
 
-install: $(DOCNAME).pdf
-	cp $(DOCNAME).pdf $(PREFIX)
+.PHONY: install
+install: $(DOC).pdf
+	cp build/$(DOC).pdf $(PREFIX)

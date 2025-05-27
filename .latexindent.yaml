@@ -1,0 +1,6 @@
+defaultIndent: "  "
+verbatimEnvironments:
+    verbatim: 1
+    lstlisting: 1
+    minted: 1
+    codeblock: 1
