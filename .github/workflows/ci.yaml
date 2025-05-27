@@ -7,7 +7,7 @@ on:
         required: true
 
 env:
-  flake: git+https://github.com/${{ github.repository }}/${{ github.sha }}/cv.git?lfs=1
+  flake: git+https://github.com/${{ github.repository }}/cv.git?rev=${{ github.sha }}?lfs=1
   nix-conf: |-
     accept-flake-config = true
     builders-use-substitutes = true
