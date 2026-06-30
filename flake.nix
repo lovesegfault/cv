@@ -46,6 +46,37 @@
           system,
           ...
         }:
+        let
+          typst = pkgs.typst.withPackages (
+            ps:
+            # cv.typ imports @preview/basic-resume by exact version; fail
+            # loudly when nixpkgs moves on so the import string gets bumped
+            # alongside instead of typst attempting a network download.
+            assert ps.basic-resume.version == "0.2.9";
+            [ ps.basic-resume ]
+          );
+
+          mkCv =
+            targets:
+            pkgs.stdenv.mkDerivation {
+              name = "cv";
+              src = pkgs.gitignoreSource ./.;
+
+              nativeBuildInputs = [ typst ];
+
+              env = {
+                # Hermetic font resolution: only the fonts bundled with typst.
+                TYPST_FLAGS = "--ignore-system-fonts";
+                # datetime.today() honors this, dating the CV's footer with
+                # the last commit instead of the epoch.
+                SOURCE_DATE_EPOCH = toString (inputs.self.lastModified or 315532800);
+              };
+
+              buildFlags = targets;
+              installTargets = map (target: "install-" + target) targets;
+              makeFlags = [ "PREFIX=${placeholder "out"}" ];
+            };
+        in
         {
           # Per-system attributes can be defined here. The self' and inputs'
           # module parameters provide easy access to attributes of the same
@@ -61,7 +92,6 @@
               nil.enable = true;
               statix.enable = true;
               treefmt.enable = true;
-              chktex.enable = true;
             };
           };
 
@@ -70,57 +100,28 @@
             flakeCheck = false; # Covered by git-hooks check
             programs = {
               nixfmt.enable = true;
-              latexindent.enable = true;
+              typstyle.enable = true;
             };
-            settings.formatter.latexindent.options = [ "-l" ];
           };
 
-          devShells.default = self'.packages.default.overrideAttrs (old: {
-            nativeBuildInputs =
-              (old.nativeBuildInputs or [ ])
-              ++ (with pkgs; [ statix ])
-              ++ (builtins.attrValues config.treefmt.build.programs);
+          devShells.default = pkgs.mkShell {
+            packages = [
+              typst
+              pkgs.tinymist
+              pkgs.statix
+            ]
+            ++ (builtins.attrValues config.treefmt.build.programs);
 
             shellHook = config.pre-commit.installationScript;
-          });
+          };
 
-          packages.default = pkgs.stdenv.mkDerivation {
-            name = "cv";
-            src = pkgs.gitignoreSource ./.;
-
-            nativeBuildInputs = with pkgs; [
-              (texlive.combine {
-                inherit (texlive)
-                  scheme-basic
-
-                  latexmk
-                  xetex
-
-                  fontawesome
-                  fontspec
-                  lineno
-                  lipsum
-                  mfirstuc
-                  minted
-                  noto
-                  pgf
-                  titlesec
-                  upquote
-                  xcolor
-                  xkeyval
-                  ;
-              })
-              (python3.withPackages (ps: with ps; [ pygments ]))
+          packages = {
+            pdf = mkCv [ "pdf" ];
+            html = mkCv [ "html" ];
+            default = mkCv [
+              "pdf"
+              "html"
             ];
-
-            preBuild = ''
-              export XDG_CACHE_HOME="$(mktemp -d)"
-              export XDG_CONFIG_HOME="$(mktemp -d)"
-              mkdir -p "$XDG_CACHE_HOME/texmf-var"
-              export TEXMFHOME="$XDG_CACHE_HOME" TEXMFVAR="$XDG_CACHE_HOME/texmf-var"
-            '';
-
-            makeFlags = [ "PREFIX=${placeholder "out"}" ];
           };
         };
       flake = {

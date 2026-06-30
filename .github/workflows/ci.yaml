@@ -58,6 +58,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cv
-          path: ${{ steps.build.outputs.result }}/cv.pdf
+          path: |
+            ${{ steps.build.outputs.result }}/cv.pdf
+            ${{ steps.build.outputs.result }}/cv.html
           if-no-files-found: error
           retention-days: 1
