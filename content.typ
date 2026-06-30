@@ -15,7 +15,7 @@
 #let date-range(start, end) = start + " — " + end
 
 #let glance = (
-  [5+ years experience writing and deploying high-performance systems into
+  [8+ years experience writing and deploying high-performance systems into
     production with Rust.],
   [Diverse breadth of experience, having worked on driving hardware devices,
     compilers, build systems, operating systems, and computer vision.],
