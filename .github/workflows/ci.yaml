@@ -17,7 +17,7 @@ jobs:
   flake-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: DeterminateSystems/nix-installer-action@v17
+      - uses: DeterminateSystems/nix-installer-action@v20
         with:
           extra-conf: ${{ env.nix-conf }}
       - uses: cachix/cachix-action@v16
@@ -29,7 +29,7 @@ jobs:
   flake-show:
     runs-on: ubuntu-latest
     steps:
-      - uses: DeterminateSystems/nix-installer-action@v17
+      - uses: DeterminateSystems/nix-installer-action@v20
         with:
           extra-conf: ${{ env.nix-conf }}
       - uses: cachix/cachix-action@v16
@@ -41,7 +41,7 @@ jobs:
   flake-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: DeterminateSystems/nix-installer-action@v17
+      - uses: DeterminateSystems/nix-installer-action@v20
         with:
           extra-conf: ${{ env.nix-conf }}
       - uses: cachix/cachix-action@v16
