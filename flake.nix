@@ -1,22 +1,17 @@
 {
   inputs = {
     self.lfs = true;
-    flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
-    gitignore = {
-      url = "github:hercules-ci/gitignore.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs = {
-        flake-compat.follows = "flake-compat";
+        # Only used by upstream's default.nix, which we don't consume.
+        flake-compat.follows = "";
         nixpkgs.follows = "nixpkgs";
-        gitignore.follows = "gitignore";
       };
     };
     treefmt-nix = {
@@ -40,20 +35,52 @@
       perSystem =
         {
           config,
-          self',
-          inputs',
+          lib,
           pkgs,
-          system,
           ...
         }:
-        {
-          # Per-system attributes can be defined here. The self' and inputs'
-          # module parameters provide easy access to attributes of the same
-          # system.
-          _module.args.pkgs = import inputs.nixpkgs {
-            localSystem = system;
-            overlays = [ inputs.gitignore.overlay ];
+        let
+          # cv.typ imports @preview/basic-resume by exact version, so pin the
+          # same one here. Bump both together.
+          typst = pkgs.typst.withPackages (ps: [ ps.basic-resume_0_2_9 ]);
+
+          typstEnv = {
+            # Hermetic font resolution: only the fonts bundled with typst.
+            TYPST_FLAGS = "--ignore-system-fonts";
           };
+
+          mkCv =
+            targets:
+            pkgs.stdenvNoCC.mkDerivation {
+              name = "cv";
+              src = lib.fileset.toSource {
+                root = ./.;
+                fileset = lib.fileset.unions [
+                  ./Makefile
+                  ./content.typ
+                  ./cv-html.typ
+                  ./cv.typ
+                  ./images
+                ];
+              };
+
+              nativeBuildInputs = [
+                pkgs.gnumake
+                typst
+              ];
+
+              env = typstEnv // {
+                # datetime.today() honors this, dating the CV's footer with
+                # the last commit instead of the epoch.
+                SOURCE_DATE_EPOCH = toString (inputs.self.lastModified or 315532800);
+              };
+
+              buildFlags = targets;
+              installTargets = map (target: "install-" + target) targets;
+              makeFlags = [ "PREFIX=${placeholder "out"}" ];
+            };
+        in
+        {
           pre-commit = {
             check.enable = true;
             settings.hooks = {
@@ -61,7 +88,6 @@
               nil.enable = true;
               statix.enable = true;
               treefmt.enable = true;
-              chktex.enable = true;
             };
           };
 
@@ -70,64 +96,40 @@
             flakeCheck = false; # Covered by git-hooks check
             programs = {
               nixfmt.enable = true;
-              latexindent.enable = true;
+              typstyle.enable = true;
             };
-            settings.formatter.latexindent.options = [ "-l" ];
           };
 
-          devShells.default = self'.packages.default.overrideAttrs (old: {
-            nativeBuildInputs =
-              (old.nativeBuildInputs or [ ])
-              ++ (with pkgs; [ statix ])
-              ++ (builtins.attrValues config.treefmt.build.programs);
+          devShells.default = pkgs.mkShellNoCC {
+            env = typstEnv // {
+              # The typst wrapper sets this for itself, but tinymist needs it
+              # too in order to resolve the template.
+              TYPST_PACKAGE_CACHE_PATH = "${typst}/lib/typst/packages";
+            };
+
+            packages = [
+              pkgs.gnumake
+              typst
+              pkgs.tinymist
+              pkgs.statix
+            ]
+            ++ (builtins.attrValues config.treefmt.build.programs);
 
             shellHook = config.pre-commit.installationScript;
-          });
-
-          packages.default = pkgs.stdenv.mkDerivation {
-            name = "cv";
-            src = pkgs.gitignoreSource ./.;
-
-            nativeBuildInputs = with pkgs; [
-              (texlive.combine {
-                inherit (texlive)
-                  scheme-basic
-
-                  latexmk
-                  xetex
-
-                  fontawesome
-                  fontspec
-                  lineno
-                  lipsum
-                  mfirstuc
-                  minted
-                  noto
-                  pgf
-                  titlesec
-                  upquote
-                  xcolor
-                  xkeyval
-                  ;
-              })
-              (python3.withPackages (ps: with ps; [ pygments ]))
-            ];
-
-            preBuild = ''
-              export XDG_CACHE_HOME="$(mktemp -d)"
-              export XDG_CONFIG_HOME="$(mktemp -d)"
-              mkdir -p "$XDG_CACHE_HOME/texmf-var"
-              export TEXMFHOME="$XDG_CACHE_HOME" TEXMFVAR="$XDG_CACHE_HOME/texmf-var"
-            '';
-
-            makeFlags = [ "PREFIX=${placeholder "out"}" ];
           };
-        };
-      flake = {
-        # The usual flake attributes can be defined here, including system-
-        # agnostic ones like nixosModule and system-enumerating ones, although
-        # those are more easily expressed in perSystem.
 
-      };
+          packages = {
+            pdf = mkCv [ "pdf" ];
+            html = mkCv [ "html" ];
+            default = mkCv [
+              "pdf"
+              "html"
+            ];
+          };
+
+          # `nix flake check` only evaluates packages, so build the CV here to
+          # catch broken layouts and page overflows.
+          checks.cv = config.packages.default;
+        };
     };
 }
